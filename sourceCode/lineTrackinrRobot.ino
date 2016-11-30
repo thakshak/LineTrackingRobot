@@ -73,7 +73,7 @@ void loop()
   }
   //===================color sensor============//
   //===============ultra sonic sensor=========//
-  //delay(50);// Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
+  else delay(50);// Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
   //Serial.print("Ping: ");
   int distance_from_obstacle=sonar.ping_cm();
   //Serial.print(distance_from_obstacle); // Send ping, get distance in cm and print result (0 = outside set distance range)
