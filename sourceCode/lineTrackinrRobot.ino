@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include "Adafruit_TCS34725.h"
+#include <Adafruit_TCS34725.h>
 #include <NewPing.h>
 
 int LQRE1113_Pin = 2; //connected to digital 2
