@@ -70,7 +70,7 @@ void loop()
     Serial.print(blue);
     Serial.println(" ");
     //if(red>1000 && blue<1000 && green<1000 && millis()-coltime>3000)
-   if(red>90 && millis()-coltime>3000)
+   if(red>100 && millis()-coltime>3000)
     {
       coltime=millis();
       stopArdumoto(MOTOR_B);
@@ -83,10 +83,10 @@ void loop()
   delay(40);// Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
   //Serial.print("Ping: ");
   int distance_from_obstacle=sonar.ping_cm();
-  //Serial.print(distance_from_obstacle); // Send ping, get distance in cm and print result (0 = outside set distance range)
+  Serial.print(distance_from_obstacle); // Send ping, get distance in cm and print result (0 = outside set distance range)
   //Serial.println("cm");
   //Serial.println();
-  while(distance_from_obstacle>0 && distance_from_obstacle<15)
+  while(distance_from_obstacle>0 && distance_from_obstacle<10)
   {
     stopArdumoto(MOTOR_B);
     stopArdumoto(MOTOR_A);
