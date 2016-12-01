@@ -3,10 +3,10 @@
 #include <NewPing.h>
 
 int LQRE1113_Pin = 2; //connected to digital 2
-int RQRE1113_Pin = 4; //connected to digital 4
+int RQRE1113_Pin = 4; //connected to digital 0
 
 #define commonAnode true
-Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_2_4MS, TCS34725_GAIN_1X);
 long coltime=millis();
 bool colorSensorAccessible=true;
 
@@ -60,10 +60,17 @@ void loop()
   if(colorSensorAccessible)
   {
     tcs.setInterrupt(false);      // turn on LED
-    delay(60);  // takes 50ms to read 
+    delay(10);  // takes 50ms to read 
     tcs.getRawData(&red, &green, &blue, &clear);
     tcs.setInterrupt(true);  // turn off LED  
-    if(red>200 && blue<100 && green<100 && millis()-coltime>3000)
+    Serial.print(red);
+    Serial.print(" ");
+    Serial.print(green);
+    Serial.print(" ");
+    Serial.print(blue);
+    Serial.println(" ");
+    //if(red>1000 && blue<1000 && green<1000 && millis()-coltime>3000)
+   if(red>90 && millis()-coltime>3000)
     {
       coltime=millis();
       stopArdumoto(MOTOR_B);
@@ -73,17 +80,19 @@ void loop()
   }
   //===================color sensor============//
   //===============ultra sonic sensor=========//
-  else delay(50);// Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
+  delay(40);// Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
   //Serial.print("Ping: ");
   int distance_from_obstacle=sonar.ping_cm();
   //Serial.print(distance_from_obstacle); // Send ping, get distance in cm and print result (0 = outside set distance range)
   //Serial.println("cm");
   //Serial.println();
-  if(distance_from_obstacle>0 && distance_from_obstacle<30)
+  while(distance_from_obstacle>0 && distance_from_obstacle<15)
   {
     stopArdumoto(MOTOR_B);
     stopArdumoto(MOTOR_A);
-    delay(2000);
+   // delay(2000);
+    distance_from_obstacle=sonar.ping_cm();
+    
   }
   
   //===============ultra sonic sensor========//
